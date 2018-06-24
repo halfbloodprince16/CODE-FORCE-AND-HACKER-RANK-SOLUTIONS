@@ -35,6 +35,7 @@ int main(int argc, char const *argv[])
 		cin>>x[i];
 		s2+=x[i];
 	}
+	sort(x,x+n);
 	if(s2/n >= 4.5){return cout<<"0",0;}
 	while(chk()==false)
 	{
