@@ -12,39 +12,28 @@ int main(int argc, char const *argv[])
 {
 	fast;
 	ll n,k,i,j;
-	string s1,s2,s;
+	string a,b;
 	ll hash[101]={};
-	cin>>n;
-	int f=0;
-	int leng=0;
-	while(n>0)
-	{
-		cin>>s1>>s2;
-		
-		for (i = 0; i < s1.length(); i++) 
-       	{
-       		for (int len = 1; len <= s1.length() - i; len++)
-          	{
-          		 s = s1.substr(i, len);
-          		 f = s2.find(s);
-          		 if(f == std::string::npos)
-          		 {
-          		 	continue;
-          		 }
-          		 else
-          		 {
-          		 	if(leng <= s.length())
-          		 	{
-          		 		leng = s.length();
-          		 	}
+	cin>>a>>b;
 
-          		 }
-          	}
-        }
-        cout<<((s1.length()+s2.length())-(leng*2))<<endl;
-        leng = 0;
-		n--;
+	ll x[26]={},y[26]={};
+	for(i=0;i<a.length();i++)
+	{
+		x[int(a[i])-97]++;
 	}
-	
+	for(i=0;i<b.length();i++)
+	{
+		y[int(b[i])-97]++;
+	}
+	ll cnt=0;
+
+	for(i=0;i<26;i++)
+	{
+		if(x[i] != y[i])
+		{
+			cnt++;
+		}
+	}
+	cout<<cnt;
 	return 0;
 }
