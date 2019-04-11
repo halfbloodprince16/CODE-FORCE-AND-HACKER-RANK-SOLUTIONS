@@ -7,7 +7,6 @@ int placequeen(int r2,int c2,int *ptr)
 	int r1,c1,i;
 	for(r1=0;r1<r2;r1++)
 	{
-		c1 = ptr[r1];
 		if(c1==c2 || abs(r2-r1)==abs(c1-c2))
 		{
 			return 0;
@@ -18,7 +17,8 @@ int placequeen(int r2,int c2,int *ptr)
 
 void display(int *ptr,int n)
 {
-	for(int i=0;i<n;i++)
+	int i;
+	for(i=0;i<n;i++)
 	{
 		cout<<ptr[i]<<" ";
 	}
@@ -30,10 +30,12 @@ void iterative(int n)
 	int i,j,cnt=0,r=0;
 	int *ptr;
 	ptr = (int *)malloc(n*sizeof(int));
+	
 	for(i=0;i<n;i++)
 	{
 		ptr[i] = -1;
 	}
+	
 	while(r!=-1)
 	{
 		ptr[r]++;
@@ -45,7 +47,6 @@ void iterative(int n)
 				{
 					cout<<"Solution no."<<++cnt;
 					display(ptr,n);
-					return; //return for all solutions
 				}
 				else
 				{
@@ -59,32 +60,9 @@ void iterative(int n)
 			r--;
 		}
 	}
-	free(ptr);
 	return;
 }
-int sol=1;
-void recursive(int n,int *ptr,int r)
-{
-	static int d;
-	int i,j,c,cnt=0;
-	for(c=0;c<n;c++)
-	{
-		if(placequeen(r,c,ptr))
-		{
-			ptr[r] = c;
-			if(r==n-1)
-			{
-				cout<<"Solution no."<<++cnt;
-				display(ptr,n);
-				return; //return for all solutions
-			}
-			else
-			{
-				recursive(n,ptr,r+1);
-			}
-		}
-	}
-}
+
 
 int main() 
 {
@@ -100,10 +78,7 @@ int main()
 		switch(ch)
 		{
 			case 1: iterative(n); break;
-			case 2: int *ptr = (int *)malloc(n*sizeof(int));
-					int r=0;
-					recursive(n,ptr,r);
-					break;
+			case 2: break;
 		}
 	}
 	while(ch!=3);
