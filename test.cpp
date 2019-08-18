@@ -1,111 +1,122 @@
-#include <stdio.h>
 #include <bits/stdc++.h>
 using namespace std;
+string ltrim(const string &);
+string rtrim(const string &);
 
-int placequeen(int r2,int c2,int *ptr)
+// Complete the closestStraightCity function below.
+vector<string> closestStraightCity(vector<string> c, vector<int> x, vector<int> y, vector<string> q) 
 {
-	int r1,c1,i;
-	for(r1=0;r1<r2;r1++)
-	{
-		c1 = ptr[r1];
-		if(c1==c2 || abs(r2-r1)==abs(c1-c2))
-		{
-			return 0;
-		}
-	}
-	return 1;
+    for(int i=0;i<q.size();i++)
+    {
+        for(int j=0; j<c.size();j++)
+        {
+            if(q[i] == c[j])
+            {
+                cout<<x[i]<<y[j]<<endl;
+            }
+        }
+    }
 }
 
-void display(int *ptr,int n)
+int main()
 {
-	for(int i=0;i<n;i++)
-	{
-		cout<<ptr[i]<<" ";
-	}
-	cout<<endl;
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string c_count_temp;
+    getline(cin, c_count_temp);
+
+    int c_count = stoi(ltrim(rtrim(c_count_temp)));
+
+    vector<string> c(c_count);
+
+    for (int i = 0; i < c_count; i++) {
+        string c_item;
+        getline(cin, c_item);
+
+        c[i] = c_item;
+    }
+
+    string x_count_temp;
+    getline(cin, x_count_temp);
+
+    int x_count = stoi(ltrim(rtrim(x_count_temp)));
+
+    vector<int> x(x_count);
+
+    for (int i = 0; i < x_count; i++) {
+        string x_item_temp;
+        getline(cin, x_item_temp);
+
+        int x_item = stoi(ltrim(rtrim(x_item_temp)));
+
+        x[i] = x_item;
+    }
+
+    string y_count_temp;
+    getline(cin, y_count_temp);
+
+    int y_count = stoi(ltrim(rtrim(y_count_temp)));
+
+    vector<int> y(y_count);
+
+    for (int i = 0; i < y_count; i++) {
+        string y_item_temp;
+        getline(cin, y_item_temp);
+
+        int y_item = stoi(ltrim(rtrim(y_item_temp)));
+
+        y[i] = y_item;
+    }
+
+    string q_count_temp;
+    getline(cin, q_count_temp);
+
+    int q_count = stoi(ltrim(rtrim(q_count_temp)));
+
+    vector<string> q(q_count);
+
+    for (int i = 0; i < q_count; i++) {
+        string q_item;
+        getline(cin, q_item);
+
+        q[i] = q_item;
+    }
+
+    vector<string> res = closestStraightCity(c, x, y, q);
+
+    for (int i = 0; i < res.size(); i++) {
+        fout << res[i];
+
+        if (i != res.size() - 1) {
+            fout << "\n";
+        }
+    }
+
+    fout << "\n";
+
+    fout.close();
+
+    return 0;
 }
 
-void iterative(int n)
-{
-	int i,j,cnt=0,r=0;
-	int *ptr;
-	ptr = (int *)malloc(n*sizeof(int));
-	for(i=0;i<n;i++)
-	{
-		ptr[i] = -1;
-	}
-	while(r!=-1)
-	{
-		ptr[r]++;
-		if(ptr[r] < n)
-		{
-			if(placequeen(r,ptr[r],ptr))
-			{
-				if(r == n-1)
-				{
-					cout<<"Solution no."<<++cnt;
-					display(ptr,n);
-					return; //return for all solutions
-				}
-				else
-				{
-					r++;
-				}
-			}
-		}
-		else
-		{
-			ptr[r] = -1;
-			r--;
-		}
-	}
-	free(ptr);
-	return;
-}
-int sol=1;
-void recursive(int n,int *ptr,int r)
-{
-	static int d;
-	int i,j,c,cnt=0;
-	for(c=0;c<n;c++)
-	{
-		if(placequeen(r,c,ptr))
-		{
-			ptr[r] = c;
-			if(r==n-1)
-			{
-				cout<<"Solution no."<<++cnt;
-				display(ptr,n);
-				return; //return for all solutions
-			}
-			else
-			{
-				recursive(n,ptr,r+1);
-			}
-		}
-	}
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
 }
 
-int main() 
-{
-	int n;
-	cout<<"Code for N-Queen\n Enter N :";
-	cin>>n;
-	
-	int ch;
-	do
-	{
-		cout<<"1:Iterative\n2:Recursive";
-		cin>>ch;
-		switch(ch)
-		{
-			case 1: iterative(n); break;
-			case 2: int *ptr = (int *)malloc(n*sizeof(int));
-					int r=0;
-					recursive(n,ptr,r);
-					break;
-		}
-	}
-	while(ch!=3);
-	return 0;
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
 }
