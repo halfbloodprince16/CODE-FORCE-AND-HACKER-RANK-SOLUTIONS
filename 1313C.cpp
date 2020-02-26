@@ -1,12 +1,18 @@
-#include"bits/stdc++.h"
+#include"bits/stdc++.h" 
 using namespace std;
-#define lar 1e10+1
-
-bool all_minus_one(int arr[],int m)
+#define fast ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL)
+typedef long long int ll;
+vector<int>v;
+vector<int>u;
+vector<int>::iterator itr;
+priority_queue<int>pq;
+const int N=1e6+10;
+/*--------------------------hbp16@hbp16-Inspiron-3543:-$------------------------------*/
+bool all_are_minus(int arr[], int n)
 {
-	for(int i=0;i<m;i++)
+	for(int i=0;i<n;i++)
 	{
-		if(arr[i] > 0)
+		if(arr[i] != -1)
 		{
 			return false;
 		}
@@ -14,34 +20,49 @@ bool all_minus_one(int arr[],int m)
 	return true;
 }
 
-int find_min_id(int arr[],int m)
+void print(int arr[],int n)
 {
-	sort(arr,arr+m);
-	for(int i=1;i<m;i++)
+	for(int i=0;i<n;i++)
 	{
-		if(arr[i-1] == -1 and arr[i] != -1)
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
+
+	return;
+}
+
+int find_min_id(int arr[], int n)
+{
+	int mn=N;
+	int id=0;
+	for(int i=0;i<n;i++)
+	{
+		if(arr[i] < mn and arr[i] != -1)
 		{
-			return i+1;
+			mn = arr[i];
+			id = i;
 		}
 	}
+
+	return id;
 }
 
 int main(int argc, char const *argv[])
 {
-	int m;
-	cin>>m;
-	int x[m];
+	fast;
+	int n;
+	cin>>n; 
+	int x[n];
+	int corr_x[n];
 	memset(x,0,sizeof(x));
-
-	for(int i=0;i<m;i++)
+	memset(corr_x,-1,sizeof(corr_x));
+	
+	for(int i=0;i<n;i++)
 	{
 		cin>>x[i];
 	}
-	
-	int corr_x[m];
-	memset(corr_x,-1,sizeof(corr_x));
 
-	for(int i=1;i<m-1;i++)
+	for(int i=1;i<n-1;i++)
 	{
 		if(x[i] < x[i-1] and x[i] < x[i+1])
 		{
@@ -49,43 +70,32 @@ int main(int argc, char const *argv[])
 		}
 	}
 
-	while(all_minus_one(corr_x,m) != true)
+	while(all_are_minus(corr_x,n) != true)
 	{
-		int temp[m];
-		std::copy(corr_x, corr_x+m, temp);
-		int id = find_min_id(temp,m);
-		cout<<id<<endl;
+		int id = find_min_id(corr_x,n);
+		//cout<<id;
+		int l = x[id-1];
+		int r = x[id+1];
 
-		int mn = min(x[id-1],x[id+1]);
-		if(mn == x[id-1])
+		if(l > r)
 		{
-			x[id-1] -= abs(x[id-1] - x[id]); 
+			x[id+1] = x[id];
 		}
 		else
 		{
-			x[id+1] -= abs(x[id+1] - x[id]);
+			x[id-1] = x[id];
 		}
-		
 		corr_x[id] = -1;
-
-		for(int i=0;i<m;i++)
-		{
-			cout<<x[i]<<" ";
-		}
-		cout<<endl;
-
-		for(int i=0;i<m;i++)
-		{
-			cout<<corr_x[i]<<" ";
-		}
+		
+		//print(x,n);
+		//print(corr_x,n);
 	}
-
-	cout<<endl;
+	print(x,n);
 	return 0;
 }
 
-
 /*
+test case
 8
-4 3 5 2 7 8 1 6
+6 5 7 3 2 1 4 5
 */
