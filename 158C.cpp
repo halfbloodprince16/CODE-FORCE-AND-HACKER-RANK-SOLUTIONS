@@ -10,26 +10,27 @@ const int N=1e5+10;
 /*--------------------------hbp16@hbp16-Inspiron-3543:-$------------------------------*/
 int main(int argc, char const *argv[])
 {
-	string s;
-	cin>>s;
-	int a=0,b=0;
-	for(int i=0;i<s.length();i++)
+	int a,b;
+	cin>>a>>b;
+
+	double x,y;
+	x = ceil(a/0.08);
+	y = ceil(b/0.1);
+
+	if(x > y)
 	{
-		if(s[i] == 'A')
-		{
-			a++;
-		}
-		else if(s[i] == 'B')
-		{
-			b++;
-		}
+		y = x;
 	}
-	if(a == 3 or b == 3)
+	else
 	{
-		cout<<"No";
-		return 0;
+		x = y;
 	}
 
-	cout<<"Yes";
+	if((int)x*0.08 == a and (int)y*0.1 == b)
+	{
+		cout<<x;
+		return 0;
+	}
+	cout<<"-1";
 	return 0;
 }

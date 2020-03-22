@@ -10,26 +10,14 @@ const int N=1e5+10;
 /*--------------------------hbp16@hbp16-Inspiron-3543:-$------------------------------*/
 int main(int argc, char const *argv[])
 {
-	string s;
-	cin>>s;
-	int a=0,b=0;
-	for(int i=0;i<s.length();i++)
+	int n,q;
+	cin>>n>>q;
+	string s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int i=1;
+	while(q-- and i < n)
 	{
-		if(s[i] == 'A')
-		{
-			a++;
-		}
-		else if(s[i] == 'B')
-		{
-			b++;
-		}
+		cout<<"?"<<" "<<s[i-1]<<" "<<s[i]<<endl;
+		i++;
 	}
-	if(a == 3 or b == 3)
-	{
-		cout<<"No";
-		return 0;
-	}
-
-	cout<<"Yes";
 	return 0;
 }

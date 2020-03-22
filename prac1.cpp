@@ -10,26 +10,9 @@ const int N=1e5+10;
 /*--------------------------hbp16@hbp16-Inspiron-3543:-$------------------------------*/
 int main(int argc, char const *argv[])
 {
+	int a,b,c;
 	string s;
-	cin>>s;
-	int a=0,b=0;
-	for(int i=0;i<s.length();i++)
-	{
-		if(s[i] == 'A')
-		{
-			a++;
-		}
-		else if(s[i] == 'B')
-		{
-			b++;
-		}
-	}
-	if(a == 3 or b == 3)
-	{
-		cout<<"No";
-		return 0;
-	}
-
-	cout<<"Yes";
+	cin>>a>>b>>c>>s;
+	cout<<(a+b+c)<<" "<<s;
 	return 0;
 }
