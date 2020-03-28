@@ -1,63 +1,65 @@
-#include"bits/stdc++.h"
+#include"bits/stdc++.h" 
 using namespace std;
-#define fast ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL)
+#define fast ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
 typedef long long int ll;
-vector<int>v;
 vector<int>u;
 vector<int>w;
-vector<int>::iterator itr;
 priority_queue<int>pq;
-std::map<int,int> m;
-const int N=1e6+10;
+const int N=1e5+10;
 /*--------------------------hbp16@hbp16-Inspiron-3543:-$------------------------------*/
+
 int main(int argc, char const *argv[])
 {
-	int n,k;
+	ll n,k;
 	cin>>n>>k;
-	int i,j,haha;
-	for(i=0;i<n;i++)
+	ll lec[n], wake[n];
+	memset(lec,0,sizeof(lec));
+	memset(wake,0,sizeof(wake));
+
+	for(int i=0;i<n;i++)
 	{
-		cin>>haha;
-		v.push_back(haha);
+		cin>>lec[i];
 	}
-	for(i=0;i<n;i++)
+	ll sm=0;
+	ll tot=0;
+	
+	for(int i=0;i<n;i++)
 	{
-		cin>>haha;
-		u.push_back(haha);
-	}
-	int ans=0,cnt=0;
-	for(i=0;i<n;i++)
-	{
-		if(u[i] == 0)
+		cin>>wake[i];
+		if(wake[i] == 1)
 		{
-			for(j = 0 ; j < n ;)
-			{
-				if(j == i)
-				{
-					ans = ans + v[j] + v[j+1] + v[j+2];//sum this k ahead
-					j += 3;
-					continue;
-				}
-				else if(u[j] != 0)
-				{
-					ans = ans + v[j];
-					j++;
-				}
-				else
-				{
-					j++;
-				}
-				
-			}
-			w.push_back(ans);
-			ans = 0;
+			sm += lec[i];
 		}
-		
 	}
-	/*for(itr = w.begin() ; itr != w.end() ; itr++)
+	ll l = 0,r=k-1;
+	ll tem=0;
+
+	for(int i=l;i<=r;i++)
 	{
-		cout<<*itr<<endl;
-	}*/
-	cout<<*max_element(w.begin(),w.end());
+		if(wake[i] == 0)
+		{
+			tem+= lec[i];
+		}
+	}	
+	sm += tem;
+	tot = max(tot,sm);
+	
+	for(int i=r+1;i<n;i++)
+	{
+		if(wake[i] == 0)
+		{
+			sm += lec[i];
+		}
+		if(wake[i-k] == 0)
+		{
+			sm -= lec[i-k];
+		}
+
+		tot = max(tot,sm);
+	}
+
+	
+	cout<<tot;
+
 	return 0;
 }
